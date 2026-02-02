@@ -1,25 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Luxury Palette - Olive & White */
+  --pk-gold: #6B705C;
+  /* Muted Olive (Primary - More elegant) */
+  --pk-gold-dim: #3F4238;
+  /* Deep Olive (Secondary) */
+  --pk-charcoal: #1E261D;
+  /* Forest Black (Contrast) */
+  --pk-cream: #FFFFFF;
+  /* Pure White */
+  --pk-stone: #F0F2EF;
+  /* Mist Green (Subtle) */
+  --pk-text-main: #2C3327;
+  /* Deep Olive Text */
+  --pk-text-muted: #4A4F44;
+  /* Darker Muted Text for visibility */
+  --pk-accent: #A4B494;
+  /* Sage Green Accent */
+
+  --background: var(--pk-cream);
+  --foreground: var(--pk-text-main);
+
+  /* Spacing */
+  --spacing-container: 1600px;
+  --spacing-mobile: 20px;
+}
+
+.light-section {
+  background-color: #ffffff !important;
+  color: #1E261D !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pk-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pk-gold-dim);
+  border-radius: 5px;
+  border: 2px solid var(--pk-cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pk-gold);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--pk-charcoal);
+    --foreground: #F0F2EF;
+    --pk-text-main: #F0F2EF;
+    --pk-text-muted: #A4B494;
+    --pk-stone: #2A3329;
+    --pk-cream: #1E261D;
+    /* Adapt cream to dark mode */
   }
 }
 
-html,
+html {
+  font-size: 90%;
+  /* Global 'Zoom' effect that preserves layout integrity */
+  background-color: var(--background);
+}
+
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,8 +95,13 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Utilities for Layout */
+.container {
+  max-width: var(--spacing-container);
+  margin: 0 auto;
+  padding: 0 var(--spacing-mobile);
+}
+
+.section {
+  padding: 100px 0;
 }
