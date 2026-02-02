@@ -91,7 +91,39 @@ export default function RSVP() {
                                     <Check size={48} />
                                 </div>
                                 <h3 className="text-4xl font-[family-name:var(--font-playfair)] mb-4 text-[#1E261D]">Presença Confirmada!</h3>
-                                <p className="text-[var(--pk-text-muted)] text-lg">Mal podemos esperar para celebrar com você.</p>
+                                <p className="text-[var(--pk-text-muted)] text-lg mb-8">Mal podemos esperar para celebrar com você! 🥂</p>
+
+                                <button
+                                    onClick={async () => {
+                                        try {
+                                            const response = await fetch('/api/calendar/generate', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ guestName: name, guestEmail: email })
+                                            });
+                                            if (response.ok) {
+                                                const blob = await response.blob();
+                                                const url = window.URL.createObjectURL(blob);
+                                                const a = document.createElement('a');
+                                                a.href = url;
+                                                a.download = 'casamento-gustavo-jessica.ics';
+                                                document.body.appendChild(a);
+                                                a.click();
+                                                window.URL.revokeObjectURL(url);
+                                                document.body.removeChild(a);
+                                            }
+                                        } catch (error) {
+                                            console.error('Calendar download error:', error);
+                                        }
+                                    }}
+                                    className="inline-flex items-center gap-3 bg-[var(--pk-gold)] text-white px-8 py-4 rounded-xl hover:bg-[var(--pk-gold-dim)] transition-all duration-500 uppercase tracking-[0.3em] text-xs font-bold shadow-xl hover:shadow-[var(--pk-gold)]/30"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span>Adicionar à Agenda</span>
+                                </button>
+                                <p className="text-xs text-[var(--pk-text-muted)] mt-4 italic">📱 Funciona melhor no celular, mas também funciona no computador</p>
                             </motion.div>
                         ) : (
                             <motion.form

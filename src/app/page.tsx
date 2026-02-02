@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import StoryTimeline from "@/components/StoryTimeline";
 import Countdown from "@/components/Countdown";
+import VenueMap from "@/components/VenueMap";
 import RSVP from "@/components/RSVP";
 import Guestbook from "@/components/Guestbook";
 import Gallery from "@/components/Gallery";
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <StoryTimeline />
       <Countdown />
+      <VenueMap />
       <Gallery />
       <RSVP />
       <Guestbook />
