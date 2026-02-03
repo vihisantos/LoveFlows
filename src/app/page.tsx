@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import StoryTimeline from "@/components/StoryTimeline";
 import Countdown from "@/components/Countdown";
 import VenueMap from "@/components/VenueMap";
+import GiftRegistryCTA from "@/components/GiftRegistryCTA";
 import RSVP from "@/components/RSVP";
 import Guestbook from "@/components/Guestbook";
 import Gallery from "@/components/Gallery";
@@ -16,6 +17,7 @@ export default function Home() {
       <Countdown />
       <Gallery />
       <VenueMap />
+      <GiftRegistryCTA />
       <RSVP />
       <Guestbook />
 
