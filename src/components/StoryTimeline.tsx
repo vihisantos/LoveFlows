@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import ParallaxImage from "@/components/ParallaxImage";
 
 const EVENTS = [
     {
@@ -32,24 +33,32 @@ export default function StoryTimeline() {
     });
 
     return (
-        <section ref={containerRef} className="py-32 bg-[#1E261D] text-white relative overflow-hidden">
-            {/* Elegant transition to white */}
-            <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-t from-white via-white/20 to-transparent z-10" />
+        <section ref={containerRef} className="py-32 bg-[var(--pk-cream)] text-[var(--pk-charcoal)] relative overflow-hidden">
+            {/* Subtle background texture */}
+            <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none" />
+
+            {/* Elegant transition from previous section */}
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white to-transparent z-10" />
 
             <div className="container mx-auto px-4 relative z-20">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    className="text-center font-[family-name:var(--font-playfair)] text-4xl md:text-6xl text-[var(--pk-gold)] mb-20"
+                    viewport={{ once: true }}
+                    className="text-center mb-24"
                 >
-                    Nossa História
-                </motion.h2>
+                    <span className="text-[var(--pk-gold)] uppercase tracking-[0.4em] text-xs font-bold mb-4 block">Nossa Jornada</span>
+                    <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl text-[var(--pk-charcoal)]">
+                        História de Amor
+                    </h2>
+                    <div className="w-24 h-[1px] bg-[var(--pk-gold-dim)]/30 mx-auto mt-8" />
+                </motion.div>
 
-                <div className="relative">
+                <div className="relative max-w-5xl mx-auto">
                     {/* Vertical Line */}
                     <motion.div
                         style={{ scaleY: scrollYProgress }}
-                        className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-[var(--pk-gold)] origin-top -translate-x-1/2 transform"
+                        className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1px] bg-[var(--pk-gold)] origin-top md:-translate-x-1/2"
                     />
 
                     <div className="space-y-32">
@@ -59,6 +68,9 @@ export default function StoryTimeline() {
                     </div>
                 </div>
             </div>
+
+            {/* Elegant transition to next section */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-10" />
         </section>
     );
 }
@@ -68,26 +80,34 @@ function TimelineItem({ event, index }: { event: any, index: number }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8 }}
-            className={`flex items-center justify-between ${isEven ? 'flex-row' : 'flex-row-reverse'}`}
+            className={`flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
         >
-            <div className="w-1/2 pr-12 pl-12">
-                <div className={`${isEven ? 'text-right' : 'text-left'}`}>
-                    <span className="text-[var(--pk-gold)] font-bold text-lg">{event.year}</span>
-                    <h3 className="font-[family-name:var(--font-playfair)] text-3xl my-2">{event.title}</h3>
-                    <p className="font-[family-name:var(--font-lato)] text-[var(--pk-text-muted)]">{event.description}</p>
-                </div>
+            {/* Content Side */}
+            <div className={`w-full md:w-5/12 pl-12 md:pl-0 ${isEven ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+                <span className="text-[var(--pk-gold)] font-bold text-6xl opacity-20 font-[family-name:var(--font-playfair)] block -mb-4">{event.year}</span>
+                <h3 className="font-[family-name:var(--font-playfair)] text-3xl mb-4 text-[#1E261D]">{event.title}</h3>
+                <p className="font-[family-name:var(--font-lato)] text-[var(--pk-text-muted)] text-lg leading-relaxed">{event.description}</p>
             </div>
 
-            {/* Center Dot */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--pk-gold)] border-4 border-[var(--background)] z-10" />
+            {/* Center Dot (Desktop) */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--pk-gold)] border-4 border-[var(--pk-cream)] z-10 hidden md:block" />
 
-            <div className="w-1/2 pl-12 pr-12">
-                <div className="overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-500">
-                    <img src={event.image} alt={event.title} className="w-full h-64 object-cover hover:scale-105 transition-transform duration-700" />
+            {/* Mobile Dot */}
+            <div className="absolute left-[20px] w-4 h-4 rounded-full bg-[var(--pk-gold)] border-4 border-[var(--pk-cream)] z-10 md:hidden -translate-x-1/2" />
+
+            {/* Image Side with Parallax */}
+            <div className={`w-full md:w-5/12 pl-12 md:pl-0 ${isEven ? 'md:pl-12' : 'md:pr-12'}`}>
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group border-4 border-white rotate-1 hover:rotate-0 transition-transform duration-500">
+                    <ParallaxImage
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
             </div>
         </motion.div>

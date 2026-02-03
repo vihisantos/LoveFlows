@@ -1,0 +1,21 @@
+{
+    "name": "Gustavo & Jéssica",
+    "short_name": "G&J Wedding",
+    "description": "Convite de Casamento de Gustavo & Jéssica",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1E261D",
+    "theme_color": "#D4AF37",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

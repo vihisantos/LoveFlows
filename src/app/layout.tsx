@@ -18,6 +18,33 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Love Flow | Ultimate Wedding Template",
   description: "A state-of-the-art wedding experience.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: '/icon-192x192.png',
+    apple: '/icon-192x192.png',
+  },
+  openGraph: {
+    title: "Gustavo & Jéssica | 28.11.2026",
+    description: "Celebre o nosso amor conosco. Detalhes, RSVP, local e muito mais.",
+    url: "https://love-flows.vercel.app",
+    siteName: "Gustavo & Jéssica Wedding",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+      }
+    ],
+    locale: "pt_BR",
+    type: "website",
+  }
+};
+
+export const viewport = {
+  themeColor: "#D4AF37",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 import SmoothScroll from "@/components/SmoothScroll";

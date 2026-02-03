@@ -1,3 +1,4 @@
+import LoadingScreen from "@/components/LoadingScreen";
 import Hero from "@/components/Hero";
 import StoryTimeline from "@/components/StoryTimeline";
 import Countdown from "@/components/Countdown";
@@ -9,6 +10,7 @@ import Gallery from "@/components/Gallery";
 export default function Home() {
   return (
     <main>
+      <LoadingScreen />
       <Hero />
       <StoryTimeline />
       <Countdown />

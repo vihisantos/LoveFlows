@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
+import RevealText from "@/components/RevealText";
+
 export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -37,14 +39,13 @@ export default function Hero() {
                     Nós vamos nos casar
                 </motion.p>
 
-                <motion.h1
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-[family-name:var(--font-playfair)] text-6xl md:text-9xl lg:text-[10rem] text-[var(--pk-gold)] mb-8 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] leading-tight"
-                >
-                    Gustavo & Jessica
-                </motion.h1>
+                <div className="mb-8">
+                    <RevealText
+                        text="Gustavo & Jessica"
+                        className="font-[family-name:var(--font-playfair)] text-6xl md:text-9xl lg:text-[10rem] text-[var(--pk-gold)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] leading-tight"
+                        delay={0.2}
+                    />
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0 }}

@@ -51,15 +51,18 @@ export default function Countdown() {
 function TimeUnit({ value, label }: { value: number, label: string }) {
     return (
         <div className="flex flex-col items-center">
-            <motion.div
-                key={value}
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="text-6xl md:text-8xl font-[family-name:var(--font-playfair)] text-[var(--pk-gold-dim)] mb-2"
-            >
-                {String(value).padStart(2, '0')}
-            </motion.div>
-            <span className="text-xs uppercase tracking-[0.2em] text-[var(--pk-text-muted)] font-bold">{label}</span>
+            <div className="relative group">
+                <div className="absolute inset-0 bg-[var(--pk-gold)]/10 blur-xl rounded-full group-hover:bg-[var(--pk-gold)]/20 transition-all duration-500" />
+                <motion.div
+                    key={value}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="relative text-6xl md:text-8xl font-[family-name:var(--font-playfair)] text-[var(--pk-gold-dim)] mb-2 z-10 tabular-nums"
+                >
+                    {String(value).padStart(2, '0')}
+                </motion.div>
+            </div>
+            <span className="text-xs uppercase tracking-[0.4em] text-[var(--pk-text-muted)] font-bold relative z-10 border-t border-[var(--pk-gold-dim)]/30 pt-2 mt-2 w-full text-center">{label}</span>
         </div>
     );
 }
