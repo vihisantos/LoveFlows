@@ -12,8 +12,8 @@ export default function Home() {
       <Hero />
       <StoryTimeline />
       <Countdown />
-      <VenueMap />
       <Gallery />
+      <VenueMap />
       <RSVP />
       <Guestbook />
 

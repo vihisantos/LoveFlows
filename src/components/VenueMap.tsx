@@ -20,8 +20,14 @@ export default function VenueMap() {
 
     return (
         <section className="py-32 bg-[var(--pk-cream)] relative overflow-hidden">
+            {/* Smooth gradient transition from previous section */}
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[var(--pk-cream)] to-transparent pointer-events-none z-10" />
+
             {/* Subtle background texture */}
             <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none" />
+
+            {/* Decorative divider at top */}
+            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[var(--pk-gold)]/30 to-transparent" />
 
             <div className="container mx-auto px-4 relative z-10">
                 {/* Header */}
@@ -113,6 +119,12 @@ export default function VenueMap() {
                     </div>
                 </div>
             </div>
+
+            {/* Smooth gradient transition to next section */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white pointer-events-none" />
+
+            {/* Decorative divider at bottom */}
+            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[var(--pk-gold)]/30 to-transparent" />
         </section>
     );
 }
