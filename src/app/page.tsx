@@ -17,8 +17,8 @@ export default function Home() {
       <Countdown />
       <Gallery />
       <VenueMap />
-      <GiftRegistryCTA />
       <RSVP />
+      <GiftRegistryCTA />
       <Guestbook />
 
       <footer className="py-10 bg-[var(--pk-charcoal)] text-[var(--pk-text-muted)] text-center font-[family-name:var(--font-lato)] text-sm">
