@@ -2,7 +2,7 @@
 
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
-import { LogOut, Users, MessageSquare, LayoutDashboard } from "lucide-react";
+import { LogOut, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminNav() {

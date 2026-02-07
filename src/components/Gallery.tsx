@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 
+import Image from "next/image";
+
 const PHOTOS = [
     "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
 ];
 
@@ -33,10 +35,12 @@ export default function Gallery() {
                             viewport={{ once: true }}
                             className="break-inside-avoid group relative"
                         >
-                            <div className="overflow-hidden bg-[var(--pk-stone)] rounded-sm p-2 shadow-sm border border-black/[0.03] transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
-                                <img
+                            <div className="relative overflow-hidden bg-[var(--pk-stone)] rounded-sm p-2 shadow-sm border border-black/[0.03] transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 aspect-[4/5]">
+                                <Image
                                     src={src}
-                                    className="w-full h-auto object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    className="object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
                                     alt="Momento do casamento"
                                 />
                                 <div className="absolute inset-2 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">

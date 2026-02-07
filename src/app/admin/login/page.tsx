@@ -27,8 +27,9 @@ export default function AdminLogin() {
             if (authError) throw authError;
 
             router.push("/admin/dashboard");
-        } catch (err: any) {
-            setError(err.message || "Erro ao fazer login");
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : "Erro ao fazer login";
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }

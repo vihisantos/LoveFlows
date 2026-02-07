@@ -3,10 +3,19 @@
 import { supabase } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Heart, PenTool } from "lucide-react";
+import { Heart, PenTool } from "lucide-react";
+
+interface GuestMessage {
+    id?: number;
+    name: string;
+    message?: string;
+    msg?: string;
+    color?: string;
+    created_at?: string;
+}
 
 export default function Guestbook() {
-    const [messages, setMessages] = useState<any[]>([]);
+    const [messages, setMessages] = useState<GuestMessage[]>([]);
     const [name, setName] = useState("");
     const [newMsg, setNewMsg] = useState("");
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -25,9 +34,13 @@ export default function Guestbook() {
         // Realtime subscription
         const channel = supabase
             .channel('guestbook_live')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
-                setMessages((prev) => [payload.new, ...prev]);
-            })
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'messages' },
+                (payload: { new: GuestMessage }) => {
+                    setMessages((prev) => [payload.new, ...prev]);
+                }
+            )
             .subscribe();
 
         return () => {
@@ -145,7 +158,7 @@ export default function Guestbook() {
                                             <Stars rating={5} />
                                         </div>
                                         <p className={`font-[family-name:var(--font-playfair)] text-xl leading-relaxed text-[var(--pk-charcoal)] mb-6 italic transition-colors ${hoveredIdx !== null && hoveredIdx !== idx ? 'opacity-40' : 'opacity-100'}`}>
-                                            "{item.message || item.msg}"
+                                            &quot;{item.message || item.msg}&quot;
                                         </p>
                                         <div className="flex items-center gap-3">
                                             <div className="w-8 h-[1px] bg-[var(--pk-gold)]" />

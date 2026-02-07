@@ -48,7 +48,6 @@ export const viewport = {
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
-import MagneticCursor from "@/components/MagneticCursor";
 
 export default function RootLayout({
   children,

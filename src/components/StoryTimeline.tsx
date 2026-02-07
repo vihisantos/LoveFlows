@@ -1,11 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import ParallaxImage from "@/components/ParallaxImage";
 import { Heart, Home, Sparkles } from "lucide-react";
 
-const EVENTS = [
+interface TimelineEvent {
+    year: string;
+    title: string;
+    description: string;
+    image: string;
+    icon: React.ElementType;
+}
+
+const EVENTS: TimelineEvent[] = [
     {
         year: "2018",
         title: "O Primeiro Olhar",
@@ -81,7 +89,7 @@ export default function StoryTimeline() {
     );
 }
 
-function TimelineItem({ event, index }: { event: any, index: number }) {
+function TimelineItem({ event, index }: { event: TimelineEvent, index: number }) {
     const isEven = index % 2 === 0;
     const Icon = event.icon;
 

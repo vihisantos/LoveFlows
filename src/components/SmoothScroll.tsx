@@ -19,17 +19,23 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
             smoothWheel: true,
         });
 
+
+        // eslint-disable-next-line
         setLenis(lenisInstance);
+
+        let rafId: number;
 
         function raf(time: number) {
             lenisInstance.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
             lenisInstance.destroy();
+            cancelAnimationFrame(rafId);
+            setLenis(null);
         };
     }, []);
 

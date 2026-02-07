@@ -10,6 +10,7 @@ export default function Countdown() {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        // eslint-disable-next-line
         setIsMounted(true);
         const timer = setInterval(() => {
             const now = new Date();

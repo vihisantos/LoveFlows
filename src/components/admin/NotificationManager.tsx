@@ -1,51 +1,50 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function NotificationManager() {
-    const [permission, setPermission] = useState<NotificationPermission>("default");
+
 
     useEffect(() => {
-        if ("Notification" in window) {
-            setPermission(Notification.permission);
-            if (Notification.permission === "default") {
-                Notification.requestPermission().then(setPermission);
-            }
+        if (typeof window === "undefined" || !("Notification" in window)) return;
+
+        if (Notification.permission === "default") {
+            Notification.requestPermission();
         }
 
+        const sendNotification = (title: string, body: string) => {
+            if (Notification.permission === "granted") {
+                new Notification(title, {
+                    body,
+                    icon: "/favicon.ico",
+                });
+            }
+        };
+
         // Setup Realtime Listeners
-        const rsvpChannel = supabase
+        const channel = supabase
             .channel('admin-notifications')
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'rsvps' },
-                (payload) => {
+                (payload: { new: { full_name: string } }) => {
                     sendNotification("Novo RSVP!", `${payload.new.full_name} confirmou presença.`);
                 }
             )
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'messages' },
-                (payload) => {
+                (payload: { new: { name: string } }) => {
                     sendNotification("Nova Mensagem no Mural!", `${payload.new.name} enviou uma mensagem.`);
                 }
             )
             .subscribe();
 
         return () => {
-            supabase.removeChannel(rsvpChannel);
+            supabase.removeChannel(channel);
         };
     }, []);
-
-    const sendNotification = (title: string, body: string) => {
-        if (Notification.permission === "granted") {
-            new Notification(title, {
-                body,
-                icon: "/favicon.ico", // Ensure this exists or use a better icon URL
-            });
-        }
-    };
 
     return null; // This component doesn't render anything
 }

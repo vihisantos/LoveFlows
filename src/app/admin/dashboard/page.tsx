@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import AdminNav from "@/components/admin/AdminNav";
@@ -18,14 +18,41 @@ import {
     Search
 } from "lucide-react";
 
+interface RSVP {
+    id: string;
+    name: string;
+    attending: boolean;
+    guests: number;
+    companion_names?: string;
+    email?: string;
+    created_at: string;
+}
+
+interface Message {
+    id: string;
+    name: string;
+    message: string;
+    created_at: string;
+}
+
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
-    const [rsvps, setRsvps] = useState<any[]>([]);
-    const [messages, setMessages] = useState<any[]>([]);
+    const [rsvps, setRsvps] = useState<RSVP[]>([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [activeTab, setActiveTab] = useState<"rsvp" | "guestbook">("rsvp");
     const [filter, setFilter] = useState("all");
     const [search, setSearch] = useState("");
     const router = useRouter();
+
+    const fetchData = useCallback(async () => {
+        setLoading(true);
+        const { data: rsvpData } = await supabase.from("rsvps").select("*").order("created_at", { ascending: false });
+        const { data: messageData } = await supabase.from("messages").select("*").order("created_at", { ascending: false });
+
+        if (rsvpData) setRsvps(rsvpData);
+        if (messageData) setMessages(messageData);
+        setLoading(false);
+    }, []);
 
     useEffect(() => {
         const checkUser = async () => {
@@ -37,17 +64,7 @@ export default function AdminDashboard() {
             }
         };
         checkUser();
-    }, []);
-
-    const fetchData = async () => {
-        setLoading(true);
-        const { data: rsvpData } = await supabase.from("rsvps").select("*").order("created_at", { ascending: false });
-        const { data: messageData } = await supabase.from("messages").select("*").order("created_at", { ascending: false });
-
-        if (rsvpData) setRsvps(rsvpData);
-        if (messageData) setMessages(messageData);
-        setLoading(false);
-    };
+    }, [router, fetchData]);
 
     const deleteMessage = async (id: string) => {
         if (!confirm("Tem certeza que deseja excluir esta mensagem?")) return;
@@ -209,7 +226,7 @@ export default function AdminDashboard() {
                                                 </p>
                                             </div>
                                         </div>
-                                        <p className="text-sm italic leading-relaxed text-[var(--pk-text-muted)]">"{msg.message}"</p>
+                                        <p className="text-sm italic leading-relaxed text-[var(--pk-text-muted)]">&quot;{msg.message}&quot;</p>
                                     </div>
                                 ))}
                             </div>
