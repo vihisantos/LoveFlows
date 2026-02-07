@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface RevealTextProps {
     text: string;
@@ -12,7 +12,7 @@ export default function RevealText({ text, className = "", delay = 0 }: RevealTe
     // Split text into words/letters
     const words = text.split(" ");
 
-    const container = {
+    const container: Variants = {
         hidden: { opacity: 0 },
         visible: (i = 1) => ({
             opacity: 1,
@@ -20,7 +20,7 @@ export default function RevealText({ text, className = "", delay = 0 }: RevealTe
         }),
     };
 
-    const child = {
+    const child: Variants = {
         visible: {
             opacity: 1,
             y: 0,

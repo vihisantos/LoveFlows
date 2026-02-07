@@ -105,24 +105,52 @@ export default function RSVP() {
                                 <p className="text-[var(--pk-text-muted)] text-lg mb-8">Mal podemos esperar para celebrar com você! 🥂</p>
 
                                 <button
-                                    onClick={async () => {
+                                    onClick={() => {
                                         try {
-                                            const response = await fetch('/api/calendar/generate', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ guestName: guestDetails.name, guestEmail: guestDetails.email })
-                                            });
-                                            if (response.ok) {
-                                                const blob = await response.blob();
-                                                const url = window.URL.createObjectURL(blob);
-                                                const a = document.createElement('a');
-                                                a.href = url;
-                                                a.download = 'casamento-gustavo-jessica.ics';
-                                                document.body.appendChild(a);
-                                                a.click();
-                                                window.URL.revokeObjectURL(url);
-                                                document.body.removeChild(a);
-                                            }
+                                            const event = {
+                                                title: 'Casamento Gustavo & Jéssica',
+                                                description: `Você está convidado para celebrar o casamento de Gustavo e Jéssica!\n\nConfira todos os detalhes em: https://love-flows.vercel.app\n\nNos vemos lá! 💍🥂`,
+                                                location: 'Villa Medicea di Lilliano, Toscana, Itália',
+                                                url: 'https://love-flows.vercel.app',
+                                                start: '20261128T170000',
+                                                duration: '6H',
+                                            };
+
+                                            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Love Flows//Wedding Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+SUMMARY:${event.title}
+UID:${Date.now()}@loveflows.vercel.app
+SEQUENCE:0
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+DTSTART:${event.start}
+DTEND:20261128T230000
+LOCATION:${event.location}
+DESCRIPTION:${event.description.replace(/\n/g, '\\n')}
+URL:${event.url}
+ORGANIZER;CN=Gustavo & Jéssica:MAILTO:contato@gustavoejessica.com
+ATTENDEE;RSVP=TRUE;CN=${guestDetails.name};PARTSTAT=ACCEPTED;ROLE=REQ-PARTICIPANT:MAILTO:${guestDetails.email}
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: Casamento Gustavo & Jéssica amanhã!
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+                                            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                                            const url = window.URL.createObjectURL(blob);
+                                            const a = document.createElement('a');
+                                            a.href = url;
+                                            a.download = 'casamento-gustavo-jessica.ics';
+                                            document.body.appendChild(a);
+                                            a.click();
+                                            window.URL.revokeObjectURL(url);
+                                            document.body.removeChild(a);
                                         } catch (error) {
                                             console.error('Calendar download error:', error);
                                         }
