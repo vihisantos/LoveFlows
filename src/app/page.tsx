@@ -23,7 +23,7 @@ export default function Home() {
 
       <footer className="py-10 bg-[var(--pk-charcoal)] text-[var(--pk-text-muted)] text-center font-[family-name:var(--font-lato)] text-sm">
         <p>&copy; 2026 Gustavo & Jéssica. Todos os direitos reservados.</p>
-        <p className="opacity-50 mt-2 text-xs uppercase tracking-widest">Criado por Capybara Holding</p>
+        <p className="opacity-50 mt-2 text-xs uppercase tracking-widest">Criado por <a href="https://vihisantos.github.io/My.Portfolio/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--pk-text-muted)] text-[var(--pk-text-muted)] no-underline cursor-default">Capybara Holding</a></p>
       </footer>
     </main>
   );

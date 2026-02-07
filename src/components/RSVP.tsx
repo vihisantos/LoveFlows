@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabaseClient";
 export default function RSVP() {
     const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
+    const [guestDetails, setGuestDetails] = useState<{ name: string; email: string }>({ name: '', email: '' });
 
     const [companionNames, setCompanionNames] = useState<string[]>([]);
     const nameRef = useRef<HTMLInputElement>(null);
@@ -17,9 +18,13 @@ export default function RSVP() {
         e.preventDefault();
         setFormState('loading');
 
+        const name = nameRef.current?.value || '';
+        const email = emailRef.current?.value || '';
+        setGuestDetails({ name, email });
+
         const { error } = await supabase.from('rsvps').insert({
-            name: nameRef.current?.value,
-            email: emailRef.current?.value,
+            name,
+            email,
             attending: attendance === 'yes',
             guests: attendance === 'yes' ? companionNames.length + 1 : 0,
             companion_names: attendance === 'yes' ? companionNames.join(', ') : null
@@ -50,7 +55,7 @@ export default function RSVP() {
     };
 
     return (
-        <section className="py-32 bg-white text-[#1E261D] relative overflow-hidden">
+        <section id="rsvp" className="py-32 bg-white text-[#1E261D] relative overflow-hidden">
             {/* Smooth gradient transition from previous section */}
             <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
 
@@ -105,7 +110,7 @@ export default function RSVP() {
                                             const response = await fetch('/api/calendar/generate', {
                                                 method: 'POST',
                                                 headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ guestName: name, guestEmail: email })
+                                                body: JSON.stringify({ guestName: guestDetails.name, guestEmail: guestDetails.email })
                                             });
                                             if (response.ok) {
                                                 const blob = await response.blob();

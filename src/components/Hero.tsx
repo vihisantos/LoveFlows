@@ -5,9 +5,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
 import RevealText from "@/components/RevealText";
+import { useLenis } from "@/components/SmoothScroll";
 
 export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const lenis = useLenis();
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"],
@@ -15,6 +18,17 @@ export default function Hero() {
 
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+    const handleRSVPClick = () => {
+        if (lenis) {
+            lenis.scrollTo('#rsvp', {
+                duration: 10, // Ultra-slow duration
+                easing: (t) => 1 - Math.pow(1 - t, 4) // Custom ease-out quart
+            });
+        } else {
+            document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <div ref={containerRef} className="relative h-screen overflow-hidden flex items-center justify-center">
@@ -51,11 +65,18 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.5, duration: 1 }}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center gap-6"
                 >
                     <p className="text-white/80 font-[family-name:var(--font-lato)] tracking-[0.3em] text-sm md:text-base uppercase">
                         28 de Novembro de 2026 • Às 17:00 • Toscana, Itália
                     </p>
+
+                    <button
+                        onClick={handleRSVPClick}
+                        className="mt-4 px-8 py-3 bg-[var(--pk-gold)] hover:bg-[#C5A028] text-white font-[family-name:var(--font-lato)] tracking-widest uppercase text-xs md:text-sm transition-colors duration-300 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transform"
+                    >
+                        Confirmar Presença
+                    </button>
                 </motion.div>
             </div>
 
