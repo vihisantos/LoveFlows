@@ -78,7 +78,7 @@ export default function AdminDashboard() {
     };
 
     const confirmedCount = rsvps.filter(r => r.attending === true).length;
-    const guestTotal = rsvps.filter(r => r.attending === true).reduce((acc, curr) => acc + (parseInt(curr.guests) || 1), 0);
+    const guestTotal = rsvps.filter(r => r.attending === true).reduce((acc, curr) => acc + (curr.guests || 1), 0);
 
     const filteredRsvps = rsvps.filter(r => {
         const matchesFilter = filter === "all" || (filter === "yes" ? r.attending === true : r.attending === false);
