@@ -28,15 +28,19 @@ export default function NotificationManager() {
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'rsvps' },
-                (payload: { new: { full_name: string } }) => {
-                    sendNotification("Novo RSVP!", `${payload.new.full_name} confirmou presença.`);
+                (payload: { new: { full_name: string } | object }) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const newRecord = (payload as any).new;
+                    sendNotification("Novo RSVP!", `${newRecord.full_name} confirmou presença.`);
                 }
             )
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'messages' },
-                (payload: { new: { name: string } }) => {
-                    sendNotification("Nova Mensagem no Mural!", `${payload.new.name} enviou uma mensagem.`);
+                (payload: { new: { name: string } | object }) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const newRecord = (payload as any).new;
+                    sendNotification("Nova Mensagem no Mural!", `${newRecord.name} enviou uma mensagem.`);
                 }
             )
             .subscribe();
