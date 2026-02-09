@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <br />
+  <h1>💍 Love Flow</h1>
+  <h3><i>O Template de Casamento Definitivo</i></h3>
+  <br />
 
-## Getting Started
+  <p>
+    Uma experiência digital elegante, fluida e memorável para celebrar o amor na Toscana.
+    <br />
+    Criado com carinho, pixels e magia.
+  </p>
 
-First, run the development server:
+  <br />
+  
+  ![Love Flow Preview](https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop)
+  
+  <br />
+  <br />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <p>
+    <img src="https://img.shields.io/badge/Made%20with-Love-ff69b4?style=for-the-badge&logoColor=white" alt="Made with Love" />
+    <img src="https://img.shields.io/badge/Style-Premium-gold?style=for-the-badge&logoColor=white" alt="Premium Style" />
+    <img src="https://img.shields.io/badge/Vibe-Romantic-red?style=for-the-badge&logoColor=white" alt="Romantic Vibe" />
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<hr />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Sobre o Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O **Love Flow** não é apenas um site, é o primeiro passo da jornada dos convidados rumo ao grande dia. Desenvolvido para ser rápido, acessível e visualmente deslumbrante, ele captura a essência do casamento antes mesmo da cerimônia começar.
 
-## Learn More
+### 💖 Funcionalidades Exclusivas
 
-To learn more about Next.js, take a look at the following resources:
+- **💌 RSVP Sem Atrito**: Confirmação de presença simples e elegante.
+- **🌍 Guia de Destino (Toscana)**: Dicas de hotéis, voos e turismo integradas.
+- **🎁 Lista de Presentes**: Curadoria especial para o casal.
+- **⏳ Contagem Regressiva**: A ansiedade do "Sim" em tempo real.
+- **📱 Mobile First**: Perfeito em qualquer dispositivo.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Tecnologia & Design
 
-## Deploy on Vercel
+Construído com as tecnologias mais modernas para garantir performance e beleza.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white" alt="Framer Motion" />
+</div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+<div align="center">
+  <br />
+  <p>🔒 <i>Este é um projeto privado. Todos os direitos reservados.</i></p>
+  <p>© 2026 Love Flow Template</p>
+  <br />
+</div>
