@@ -1,62 +1,56 @@
-<div align="center">
-  <br />
-  <h1>💍 Love Flow</h1>
-  <h3><i>O Template de Casamento Definitivo</i></h3>
-  <br />
+# Love Flow
 
-  <p>
-    Uma experiência digital elegante, fluida e memorável para celebrar o amor na Toscana.
-    <br />
-    Criado com carinho, pixels e magia.
-  </p>
+<p align="center">
+  <strong>Template de convite de casamento premium.</strong>
+  <br>
+  Site elegante para convites de casamento com RSVP,
+  <br>
+  lista de presentes, contagem regressiva e integracao Supabase.
+</p>
 
-  <br />
-  
-  ![Love Flow Preview](https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop)
-  
-  <br />
-  <br />
-
-  <p>
-    <img src="https://img.shields.io/badge/Made%20with-Love-ff69b4?style=for-the-badge&logoColor=white" alt="Made with Love" />
-    <img src="https://img.shields.io/badge/Style-Premium-gold?style=for-the-badge&logoColor=white" alt="Premium Style" />
-    <img src="https://img.shields.io/badge/Vibe-Romantic-red?style=for-the-badge&logoColor=white" alt="Romantic Vibe" />
-  </p>
-</div>
-
-<hr />
-
-## ✨ Sobre o Projeto
-
-O **Love Flow** não é apenas um site, é o primeiro passo da jornada dos convidados rumo ao grande dia. Desenvolvido para ser rápido, acessível e visualmente deslumbrante, ele captura a essência do casamento antes mesmo da cerimônia começar.
-
-### 💖 Funcionalidades Exclusivas
-
-- **💌 RSVP Sem Atrito**: Confirmação de presença simples e elegante.
-- **🌍 Guia de Destino (Toscana)**: Dicas de hotéis, voos e turismo integradas.
-- **🎁 Lista de Presentes**: Curadoria especial para o casal.
-- **⏳ Contagem Regressiva**: A ansiedade do "Sim" em tempo real.
-- **📱 Mobile First**: Perfeito em qualquer dispositivo.
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js%2016-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16">
+  <img src="https://img.shields.io/badge/Framer%20Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion">
+  <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+</p>
 
 ---
 
-## 🎨 Tecnologia & Design
+## Sobre
 
-Construído com as tecnologias mais modernas para garantir performance e beleza.
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js&logoColor=white" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb" alt="React" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white" alt="Framer Motion" />
-</div>
+**Love Flow** e um template de convite de casamento premium construido com Next.js 16. Design elegante com animacoes fluidas (Framer Motion), scroll suave (Lenis), confirmacao de presenca (RSVP), lista de presentes e contagem regressiva para o grande dia.
 
 ---
 
-<div align="center">
-  <br />
-  <p>🔒 <i>Este é um projeto privado. Todos os direitos reservados.</i></p>
-  <p>© 2026 Love Flow Template</p>
-  <br />
-</div>
+## Tech Stack
+
+| Tecnologia | Proposito |
+|---|---|
+| **Next.js 16** | Framework React com SSR/SSG |
+| **TypeScript** | Tipagem estatica |
+| **Framer Motion** | Animacoes |
+| **Lenis** | Scroll suave |
+| **Supabase** | Banco de dados PostgreSQL |
+| **Lucide React** | Iconografia |
+| **ics** | Geracao de arquivo calendario |
+
+---
+
+## Funcionalidades
+
+- Pagina inicial com contagem regressiva
+- Confirmacao de presenca (RSVP) com banco de dados
+- Lista de presentes
+- Linha do tempo do evento
+- Galeria de fotos
+- Geracao de arquivo .ics para calendario
+- Design responsivo
+
+---
+
+<p align="center">
+  <br>
+  <sub>Desenvolvido por <a href="https://capybaraholding.com.br" target="_blank"><strong>Capybara Holding</strong></a></sub>
+  <br>
+  <sub>&copy; 2026 Love Flow. Todos os direitos reservados.</sub>
+</p>
