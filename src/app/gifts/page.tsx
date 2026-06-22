@@ -8,30 +8,30 @@ import LoadingScreen from "@/components/LoadingScreen";
 const GIFTS = [
     {
         name: "Cota para Lua de Mel",
-        description: "Ajude-nos a viver momentos inesquecíveis na Itália",
+        description: "Ajude-nos a viver momentos inesquecíveis",
         price: "Sugestão: R$ 200,00",
-        icon: <CreditCard size={40} className="text-[#D4AF37]" />,
+        icon: <CreditCard size={40} className="text-[var(--pk-gold)]" />,
         link: "#"
     },
     {
         name: "Jantar Romântico",
         description: "Um jantar especial à luz de velas",
         price: "Sugestão: R$ 350,00",
-        icon: <Gift size={40} className="text-[#D4AF37]" />,
+        icon: <Gift size={40} className="text-[var(--pk-gold)]" />,
         link: "#"
     },
     {
-        name: "Lista de Presentes Amazon",
+        name: "Lista de Presentes",
         description: "Itens para nossa nova casa",
         price: "Variados",
-        icon: <ShoppingBag size={40} className="text-[#D4AF37]" />,
+        icon: <ShoppingBag size={40} className="text-[var(--pk-gold)]" />,
         link: "#"
     },
     {
-        name: "Lista Tok&Stok",
-        description: "Móveis e decoração",
-        price: "Variados",
-        icon: <ShoppingBag size={40} className="text-[#D4AF37]" />,
+        name: "Contribuição Livre",
+        description: "Qualquer valor é bem-vindo",
+        price: "À sua escolha",
+        icon: <ShoppingBag size={40} className="text-[var(--pk-gold)]" />,
         link: "#"
     }
 ];
@@ -41,10 +41,9 @@ export default function GiftsPage() {
         <main className="min-h-screen bg-[var(--pk-cream)]">
             <LoadingScreen />
 
-            {/* Header */}
-            <header className="relative py-20 px-4 mb-12 bg-[#1E261D] text-white overflow-hidden">
+            <header className="relative py-20 px-4 mb-12 bg-[var(--pk-charcoal)] text-white overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1513205800036-742a08a2fe6d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20" />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#1E261D]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--pk-charcoal)]" />
 
                 <div className="container mx-auto relative z-10 text-center">
                     <Link
@@ -66,7 +65,6 @@ export default function GiftsPage() {
                 </div>
             </header>
 
-            {/* Gifts Grid */}
             <div className="container mx-auto px-4 pb-32">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {GIFTS.map((gift, idx) => (
@@ -83,7 +81,7 @@ export default function GiftsPage() {
                                     {gift.icon}
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="font-[family-name:var(--font-playfair)] text-2xl text-[#1E261D] mb-2">
+                                    <h3 className="font-[family-name:var(--font-playfair)] text-2xl text-[var(--pk-charcoal)] mb-2">
                                         {gift.name}
                                     </h3>
                                     <p className="text-[var(--pk-text-muted)] mb-4 leading-relaxed">
@@ -93,7 +91,7 @@ export default function GiftsPage() {
                                         <span className="text-sm font-bold text-[var(--pk-gold-dim)] uppercase tracking-wider">
                                             {gift.price}
                                         </span>
-                                        <span className="w-10 h-10 rounded-full bg-[#1E261D] text-white flex items-center justify-center group-hover:bg-[var(--pk-gold)] transition-colors">
+                                        <span className="w-10 h-10 rounded-full bg-[var(--pk-charcoal)] text-white flex items-center justify-center group-hover:bg-[var(--pk-gold)] transition-colors">
                                             <ArrowLeft size={16} className="rotate-180" />
                                         </span>
                                     </div>
@@ -103,7 +101,6 @@ export default function GiftsPage() {
                     ))}
                 </div>
 
-                {/* PIX Option */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -111,7 +108,7 @@ export default function GiftsPage() {
                 >
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--pk-gold)]/5 rounded-bl-full" />
 
-                    <h3 className="font-[family-name:var(--font-playfair)] text-3xl text-[#1E261D] mb-6">
+                    <h3 className="font-[family-name:var(--font-playfair)] text-3xl text-[var(--pk-charcoal)] mb-6">
                         Prefere fazer um PIX?
                     </h3>
                     <p className="text-[var(--pk-text-muted)] mb-8">
@@ -119,8 +116,8 @@ export default function GiftsPage() {
                     </p>
 
                     <div className="bg-[var(--pk-cream)] p-6 rounded-xl inline-block mb-4">
-                        <code className="text-lg font-mono text-[#1E261D] select-all">
-                            casamento@gustavoejessica.com
+                        <code className="text-lg font-mono text-[var(--pk-charcoal)] select-all">
+                            chave@exemplo.com
                         </code>
                     </div>
                     <p className="text-xs text-[var(--pk-text-muted)] uppercase tracking-widest mt-2">

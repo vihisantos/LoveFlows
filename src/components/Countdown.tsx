@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const TARGET_DATE = new Date("2026-11-28T16:00:00");
+const TARGET_DATE = new Date("2027-01-01T16:00:00");
 
 export default function Countdown() {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        // eslint-disable-next-line
         setIsMounted(true);
         const timer = setInterval(() => {
             const now = new Date();
@@ -33,7 +32,6 @@ export default function Countdown() {
 
     return (
         <section className="py-24 bg-white text-[var(--pk-text-main)] relative">
-            {/* Subtle separator instead of border */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-transparent to-[var(--pk-stone)]" />
             <div className="container mx-auto px-4 text-center">
                 <p className="text-[var(--pk-gold)] uppercase tracking-[0.4em] mb-10 text-sm font-bold">Contagem Regressiva</p>

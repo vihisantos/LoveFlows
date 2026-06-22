@@ -27,7 +27,7 @@ export default function GiftRegistryCTA() {
                             Presentes
                         </span>
 
-                        <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl text-[#1E261D] mb-6">
+                        <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl text-[var(--pk-charcoal)] mb-6">
                             Lista de Casamento
                         </h2>
 

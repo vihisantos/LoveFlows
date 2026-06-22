@@ -1,16 +1,13 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminNav from "@/components/admin/AdminNav";
 import NotificationManager from "@/components/admin/NotificationManager";
-import { exportToCSV } from "@/utils/export";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Users,
     MessageSquare,
-    Download,
     Trash2,
     CheckCircle2,
     XCircle,
@@ -19,7 +16,7 @@ import {
 } from "lucide-react";
 
 interface RSVP {
-    id: string;
+    id: number;
     name: string;
     attending: boolean;
     guests: number;
@@ -29,7 +26,7 @@ interface RSVP {
 }
 
 interface Message {
-    id: string;
+    id: number;
     name: string;
     message: string;
     created_at: string;
@@ -44,37 +41,28 @@ export default function AdminDashboard() {
     const [search, setSearch] = useState("");
     const router = useRouter();
 
-    const fetchData = useCallback(async () => {
-        setLoading(true);
-        const { data: rsvpData } = await supabase.from("rsvps").select("*").order("created_at", { ascending: false });
-        const { data: messageData } = await supabase.from("messages").select("*").order("created_at", { ascending: false });
-
-        if (rsvpData) setRsvps(rsvpData);
-        if (messageData) setMessages(messageData);
-        setLoading(false);
-    }, []);
-
     useEffect(() => {
-        const checkUser = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                router.push("/admin/login");
-            } else {
-                fetchData();
-            }
-        };
-        checkUser();
-    }, [router, fetchData]);
-
-    const deleteMessage = async (id: string) => {
-        if (!confirm("Tem certeza que deseja excluir esta mensagem?")) return;
-        const { error } = await supabase.from("messages").delete().eq("id", id);
-        if (error) {
-            console.error("Erro ao deletar:", error);
-            alert(`Erro ao excluir: ${error.message}`);
+        const isLoggedIn = localStorage.getItem('loveflow-admin');
+        if (!isLoggedIn) {
+            router.push("/admin/login");
         } else {
-            fetchData();
+            loadData();
         }
+    }, [router]);
+
+    const loadData = () => {
+        const rsvpData = JSON.parse(localStorage.getItem('loveflow-rsvps') || '[]');
+        const messageData = JSON.parse(localStorage.getItem('loveflow-guestbook') || '[]');
+        setRsvps(rsvpData);
+        setMessages(messageData);
+        setLoading(false);
+    };
+
+    const deleteMessage = (id: number) => {
+        if (!confirm("Tem certeza que deseja excluir esta mensagem?")) return;
+        const updated = messages.filter(m => m.id !== id);
+        setMessages(updated);
+        localStorage.setItem('loveflow-guestbook', JSON.stringify(updated));
     };
 
     const confirmedCount = rsvps.filter(r => r.attending === true).length;
@@ -95,31 +83,29 @@ export default function AdminDashboard() {
     );
 
     return (
-        <div className="min-h-screen bg-[#F9F9F7] text-[#1E261D]">
+        <div className="min-h-screen bg-[var(--pk-stone)] text-[var(--pk-charcoal)]">
             <AdminNav />
             <NotificationManager />
 
             <main className="container mx-auto px-4 pt-32 pb-20">
-                {/* Stats Header */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     <StatCard title="Total RSVPs" value={rsvps.length} icon={<Users className="text-blue-500" />} />
-                    <StatCard title="Confirmados (Famílias)" value={confirmedCount} icon={<CheckCircle2 className="text-green-500" />} />
+                    <StatCard title="Confirmados" value={confirmedCount} icon={<CheckCircle2 className="text-green-500" />} />
                     <StatCard title="Total de Pessoas" value={guestTotal} icon={<TrendingUp className="text-[var(--pk-gold)]" />} />
                 </div>
 
-                {/* Tabs */}
                 <div className="flex gap-4 mb-8 bg-white p-2 rounded-2xl border border-[var(--pk-stone)] w-fit mx-auto">
                     <button
                         onClick={() => setActiveTab("rsvp")}
-                        className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold tracking-widest text-xs transition-all ${activeTab === 'rsvp' ? 'bg-[#1E261D] text-white shadow-lg' : 'text-[var(--pk-text-muted)] hover:bg-[var(--pk-stone)]/50'}`}
+                        className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold tracking-widest text-xs transition-all ${activeTab === 'rsvp' ? 'bg-[var(--pk-charcoal)] text-white shadow-lg' : 'text-[var(--pk-text-muted)] hover:bg-[var(--pk-stone)]/50'}`}
                     >
-                        <Users size={16} /> LISTA DE CONVIDADOS
+                        <Users size={16} /> CONVIDADOS
                     </button>
                     <button
                         onClick={() => setActiveTab("guestbook")}
-                        className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold tracking-widest text-xs transition-all ${activeTab === 'guestbook' ? 'bg-[#1E261D] text-white shadow-lg' : 'text-[var(--pk-text-muted)] hover:bg-[var(--pk-stone)]/50'}`}
+                        className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold tracking-widest text-xs transition-all ${activeTab === 'guestbook' ? 'bg-[var(--pk-charcoal)] text-white shadow-lg' : 'text-[var(--pk-text-muted)] hover:bg-[var(--pk-stone)]/50'}`}
                     >
-                        <MessageSquare size={16} /> MURAL DE RECADOS
+                        <MessageSquare size={16} /> RECADOS
                     </button>
                 </div>
 
@@ -149,12 +135,6 @@ export default function AdminDashboard() {
                                             <option value="no">Recusados</option>
                                         </select>
                                     </div>
-                                    <button
-                                        onClick={() => exportToCSV(rsvps, "lista_casamento")}
-                                        className="flex items-center gap-2 px-6 py-2 bg-white border border-[var(--pk-stone)] rounded-lg font-bold text-xs tracking-widest hover:bg-[var(--pk-stone)]/50 transition-all"
-                                    >
-                                        <Download size={16} /> EXPORTAR CSV
-                                    </button>
                                 </div>
 
                                 <div className="overflow-x-auto">
@@ -185,12 +165,8 @@ export default function AdminDashboard() {
                                                     <td className="px-6 py-4">
                                                         {rsvp.guests > 1 ? (
                                                             <div>
-                                                                <div className="font-bold">
-                                                                    {rsvp.guests - 1} {rsvp.guests - 1 === 1 ? 'acompanhante' : 'acompanhantes'}
-                                                                </div>
-                                                                <div className="text-[10px] text-[var(--pk-text-muted)] italic leading-tight mt-1">
-                                                                    {rsvp.companion_names}
-                                                                </div>
+                                                                <div className="font-bold">{rsvp.guests - 1} acompanhante(s)</div>
+                                                                <div className="text-[10px] text-[var(--pk-text-muted)] italic mt-1">{rsvp.companion_names}</div>
                                                             </div>
                                                         ) : (
                                                             <span className="text-[var(--pk-text-muted)] italic text-[10px]">Apenas titular</span>
@@ -207,8 +183,8 @@ export default function AdminDashboard() {
                     ) : (
                         <motion.div key="guestbook" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {messages.map((msg, idx) => (
-                                    <div key={idx} className="bg-white p-6 rounded-3xl border border-[var(--pk-stone)] shadow-sm relative group">
+                                {messages.map((msg) => (
+                                    <div key={msg.id} className="bg-white p-6 rounded-3xl border border-[var(--pk-stone)] shadow-sm relative group">
                                         <button
                                             onClick={() => deleteMessage(msg.id)}
                                             className="absolute top-4 right-4 text-red-300 hover:text-red-600 transition-colors opacity-0 group-hover:opacity-100"
@@ -243,7 +219,7 @@ function StatCard({ title, value, icon }: { title: string, value: number, icon: 
         <div className="bg-white p-6 rounded-3xl border border-[var(--pk-stone)] shadow-sm flex items-center justify-between">
             <div>
                 <p className="text-[10px] font-bold text-[var(--pk-gold)] uppercase tracking-[0.2em] mb-1">{title}</p>
-                <h3 className="text-3xl font-[family-name:var(--font-playfair)] text-[#1E261D]">{value}</h3>
+                <h3 className="text-3xl font-[family-name:var(--font-playfair)] text-[var(--pk-charcoal)]">{value}</h3>
             </div>
             <div className="p-4 bg-[var(--pk-stone)]/30 rounded-2xl">
                 {icon}

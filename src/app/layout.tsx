@@ -16,18 +16,18 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Love Flow | Ultimate Wedding Template",
-  description: "A state-of-the-art wedding experience.",
+  title: "Love Flow | Convite de Casamento",
+  description: "Template premium de convite de casamento com RSVP e contagem regressiva.",
   manifest: "/manifest.json",
   icons: {
     icon: '/icon-192x192.png',
     apple: '/icon-192x192.png',
   },
   openGraph: {
-    title: "Gustavo & Jéssica | 28.11.2026",
+    title: "Noivo & Noiva | 01.01.2027",
     description: "Celebre o nosso amor conosco. Detalhes, RSVP, local e muito mais.",
     url: "https://love-flows.vercel.app",
-    siteName: "Gustavo & Jéssica Wedding",
+    siteName: "Noivo & Noiva Wedding",
     images: [
       {
         url: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#D4AF37",
+  themeColor: "#B8860B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -55,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${playfair.variable} ${lato.variable} antialiased`}>
         <SmoothScroll>{children}</SmoothScroll>
       </body>

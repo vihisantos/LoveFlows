@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, Mail, Loader2, Stars } from "lucide-react";
@@ -18,26 +17,17 @@ export default function AdminLogin() {
         setLoading(true);
         setError(null);
 
-        try {
-            const { error: authError } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-            });
-
-            if (authError) throw authError;
-
+        if (email === "admin@loveflow.com" && password === "123456") {
+            localStorage.setItem('loveflow-admin', 'true');
             router.push("/admin/dashboard");
-        } catch (err: unknown) {
-            const errorMessage = err instanceof Error ? err.message : "Erro ao fazer login";
-            setError(errorMessage);
-        } finally {
-            setLoading(false);
+        } else {
+            setError("Credenciais inválidas");
         }
+        setLoading(false);
     };
 
     return (
         <div className="min-h-screen bg-white flex items-center justify-center p-4">
-            {/* Background Decorations */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--pk-gold)] opacity-[0.03] rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--pk-gold)] opacity-[0.03] rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
@@ -51,8 +41,8 @@ export default function AdminLogin() {
                         <div className="inline-block p-4 rounded-full bg-[var(--pk-stone)] text-[var(--pk-gold)] mb-6">
                             <Stars size={32} />
                         </div>
-                        <h1 className="font-[family-name:var(--font-playfair)] text-4xl text-[#1E261D] mb-2 uppercase tracking-tight">Admin</h1>
-                        <p className="text-[var(--pk-text-muted)] text-sm tracking-widest uppercase font-bold">Gustavo & Jéssica</p>
+                        <h1 className="font-[family-name:var(--font-playfair)] text-4xl text-[var(--pk-charcoal)] mb-2 uppercase tracking-tight">Admin</h1>
+                        <p className="text-[var(--pk-text-muted)] text-sm tracking-widest uppercase font-bold">Noivo & Noiva</p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-6">
@@ -64,8 +54,8 @@ export default function AdminLogin() {
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-transparent border-b border-[var(--pk-stone)] py-3 pl-8 focus:border-[var(--pk-gold)] outline-none text-lg text-[#1E261D] transition-colors"
-                                    placeholder="seu@email.com"
+                                    className="w-full bg-transparent border-b border-[var(--pk-stone)] py-3 pl-8 focus:border-[var(--pk-gold)] outline-none text-lg text-[var(--pk-charcoal)] transition-colors"
+                                    placeholder="admin@loveflow.com"
                                     required
                                 />
                             </div>
@@ -79,7 +69,7 @@ export default function AdminLogin() {
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-transparent border-b border-[var(--pk-stone)] py-3 pl-8 focus:border-[var(--pk-gold)] outline-none text-lg text-[#1E261D] transition-colors"
+                                    className="w-full bg-transparent border-b border-[var(--pk-stone)] py-3 pl-8 focus:border-[var(--pk-gold)] outline-none text-lg text-[var(--pk-charcoal)] transition-colors"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -99,7 +89,7 @@ export default function AdminLogin() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-[#1E261D] text-white py-4 rounded-xl font-bold tracking-[0.4em] text-xs hover:bg-[var(--pk-gold)] hover:shadow-xl transition-all duration-500 disabled:opacity-50 flex justify-center items-center gap-3"
+                            className="w-full bg-[var(--pk-charcoal)] text-white py-4 rounded-xl font-bold tracking-[0.4em] text-xs hover:bg-[var(--pk-gold)] hover:shadow-xl transition-all duration-500 disabled:opacity-50 flex justify-center items-center gap-3"
                         >
                             {loading ? <Loader2 className="animate-spin" size={18} /> : "ENTRAR NO DASHBOARD"}
                         </button>

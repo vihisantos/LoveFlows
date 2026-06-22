@@ -1,6 +1,5 @@
 "use client";
 
-import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { LogOut, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
@@ -8,8 +7,8 @@ import Link from "next/link";
 export default function AdminNav() {
     const router = useRouter();
 
-    const handleLogout = async () => {
-        await supabase.auth.signOut();
+    const handleLogout = () => {
+        localStorage.removeItem('loveflow-admin');
         router.push("/admin/login");
     };
 
@@ -17,12 +16,12 @@ export default function AdminNav() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-[var(--pk-stone)]">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 <div className="flex items-center gap-8">
-                    <span className="font-[family-name:var(--font-playfair)] text-xl text-[#1E261D] tracking-tight font-bold">
-                        G & J | ADMIN
+                    <span className="font-[family-name:var(--font-playfair)] text-xl text-[var(--pk-charcoal)] tracking-tight font-bold">
+                        N & N | ADMIN
                     </span>
 
                     <div className="hidden md:flex items-center gap-6">
-                        <Link href="/admin/dashboard" className="flex items-center gap-2 text-xs font-bold tracking-widest text-[#1E261D] hover:text-[var(--pk-gold)] transition-colors">
+                        <Link href="/admin/dashboard" className="flex items-center gap-2 text-xs font-bold tracking-widest text-[var(--pk-charcoal)] hover:text-[var(--pk-gold)] transition-colors">
                             <LayoutDashboard size={16} />
                             DASHBOARD
                         </Link>

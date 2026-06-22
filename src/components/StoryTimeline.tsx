@@ -45,12 +45,12 @@ export default function StoryTimeline() {
     });
 
     return (
-        <section ref={containerRef} className="py-32 bg-[#1E261D] text-white relative overflow-hidden">
+        <section ref={containerRef} className="py-32 bg-[var(--pk-charcoal)] text-white relative overflow-hidden">
             {/* Subtle background texture */}
             <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none mix-blend-overlay" />
 
             {/* Seamless gradient transition from Hero */}
-            <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#1E261D] via-[#1E261D] to-transparent z-10" />
+            <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[var(--pk-charcoal)] via-[var(--pk-charcoal)] to-transparent z-10" />
 
             <div className="container mx-auto px-4 relative z-20">
                 <motion.div
@@ -84,7 +84,7 @@ export default function StoryTimeline() {
             </div>
 
             {/* Transition to next section - Dark to next theme or maintain dark */}
-            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#1E261D] to-transparent z-10" />
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[var(--pk-charcoal)] to-transparent z-10" />
         </section>
     );
 }
@@ -118,14 +118,14 @@ function TimelineItem({ event, index }: { event: TimelineEvent, index: number })
 
             {/* Center Icon (Desktop) */}
             <div className="absolute left-1/2 -translate-x-1/2 z-20 hidden md:flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-[#1E261D] border-2 border-[var(--pk-gold)] flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <div className="w-16 h-16 rounded-full bg-[var(--pk-charcoal)] border-2 border-[var(--pk-gold)] flex items-center justify-center shadow-[0_0_20px_rgba(184,134,11,0.3)]">
                     <Icon className="text-[var(--pk-gold)] w-6 h-6" />
                 </div>
             </div>
 
             {/* Mobile Icon */}
             <div className="absolute left-[28px] -translate-x-1/2 top-8 z-20 md:hidden flex items-center justify-center">
-                <div className="w-12 h-12 rounded-full bg-[#1E261D] border-2 border-[var(--pk-gold)] flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                <div className="w-12 h-12 rounded-full bg-[var(--pk-charcoal)] border-2 border-[var(--pk-gold)] flex items-center justify-center shadow-[0_0_15px_rgba(184,134,11,0.3)]">
                     <Icon className="text-[var(--pk-gold)] w-5 h-5" />
                 </div>
             </div>

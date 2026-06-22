@@ -3,38 +3,27 @@
 @tailwind utilities;
 
 :root {
-  /* Luxury Palette - Olive & White */
-  --pk-gold: #6B705C;
-  /* Muted Olive (Primary - More elegant) */
-  --pk-gold-dim: #3F4238;
-  /* Deep Olive (Secondary) */
-  --pk-charcoal: #1E261D;
-  /* Forest Black (Contrast) */
+  --pk-gold: #B8860B;
+  --pk-gold-dim: #8B6914;
+  --pk-charcoal: #1a1a2e;
   --pk-cream: #FFFFFF;
-  /* Pure White */
-  --pk-stone: #F0F2EF;
-  /* Mist Green (Subtle) */
-  --pk-text-main: #2C3327;
-  /* Deep Olive Text */
-  --pk-text-muted: #4A4F44;
-  /* Darker Muted Text for visibility */
-  --pk-accent: #A4B494;
-  /* Sage Green Accent */
+  --pk-stone: #F5F3F0;
+  --pk-text-main: #2d2d44;
+  --pk-text-muted: #6b6b8d;
+  --pk-accent: #D4A574;
 
   --background: var(--pk-cream);
   --foreground: var(--pk-text-main);
 
-  /* Spacing */
   --spacing-container: 1600px;
   --spacing-mobile: 20px;
 }
 
 .light-section {
   background-color: #ffffff !important;
-  color: #1E261D !important;
+  color: #1a1a2e !important;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -56,18 +45,16 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--pk-charcoal);
-    --foreground: #F0F2EF;
-    --pk-text-main: #F0F2EF;
-    --pk-text-muted: #A4B494;
-    --pk-stone: #2A3329;
-    --pk-cream: #1E261D;
-    /* Adapt cream to dark mode */
+    --foreground: #F5F3F0;
+    --pk-text-main: #F5F3F0;
+    --pk-text-muted: #D4A574;
+    --pk-stone: #2a2a3e;
+    --pk-cream: #1a1a2e;
   }
 }
 
 html {
   font-size: 90%;
-  /* Global 'Zoom' effect that preserves layout integrity */
   background-color: var(--background);
 }
 
@@ -95,7 +82,6 @@ a {
   text-decoration: none;
 }
 
-/* Utilities for Layout */
 .container {
   max-width: var(--spacing-container);
   margin: 0 auto;

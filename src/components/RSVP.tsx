@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import { Loader2, Check, Stars, PartyPopper } from "lucide-react";
-import { supabase } from "@/lib/supabaseClient";
 
 export default function RSVP() {
     const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -22,20 +21,19 @@ export default function RSVP() {
         const email = emailRef.current?.value || '';
         setGuestDetails({ name, email });
 
-        const { error } = await supabase.from('rsvps').insert({
+        const rsvps = JSON.parse(localStorage.getItem('loveflow-rsvps') || '[]');
+        rsvps.push({
+            id: Date.now(),
             name,
             email,
             attending: attendance === 'yes',
             guests: attendance === 'yes' ? companionNames.length + 1 : 0,
-            companion_names: attendance === 'yes' ? companionNames.join(', ') : null
+            companion_names: attendance === 'yes' ? companionNames.join(', ') : null,
+            created_at: new Date().toISOString()
         });
+        localStorage.setItem('loveflow-rsvps', JSON.stringify(rsvps));
 
-        if (error) {
-            console.error(error);
-            setFormState('error');
-        } else {
-            setFormState('success');
-        }
+        setFormState('success');
     };
 
     const handleCompanionChange = (index: number, value: string) => {
@@ -45,7 +43,7 @@ export default function RSVP() {
     };
 
     const addCompanion = () => {
-        if (companionNames.length < 4) { // Limit to 4 companions for safety
+        if (companionNames.length < 4) {
             setCompanionNames([...companionNames, ""]);
         }
     };
@@ -55,14 +53,9 @@ export default function RSVP() {
     };
 
     return (
-        <section id="rsvp" className="py-32 bg-white text-[#1E261D] relative overflow-hidden">
-            {/* Smooth gradient transition from previous section */}
+        <section id="rsvp" className="py-32 bg-white text-[var(--pk-charcoal)] relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
-
-            {/* Decorative divider at top */}
             <div className="absolute top-16 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[var(--pk-gold)]/30 to-transparent" />
-
-            {/* Soft decorative elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--pk-gold)] opacity-[0.03] rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--pk-gold)] opacity-[0.03] rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
@@ -71,7 +64,7 @@ export default function RSVP() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white p-10 md:p-20 rounded-3xl border border-[var(--pk-stone)] shadow-[0_30px_100px_-20px_rgba(30,38,29,0.08)]"
+                    className="bg-white p-10 md:p-20 rounded-3xl border border-[var(--pk-stone)] shadow-[0_30px_100px_-20px_rgba(26,26,46,0.08)]"
                 >
                     <div className="text-center mb-16">
                         <motion.div
@@ -82,11 +75,11 @@ export default function RSVP() {
                         >
                             <Stars size={32} />
                         </motion.div>
-                        <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl mb-6 text-[#1E261D]">
+                        <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl mb-6 text-[var(--pk-charcoal)]">
                             Confirme sua Presença
                         </h2>
                         <p className="font-[family-name:var(--font-lato)] text-lg text-[var(--pk-text-muted)] max-w-lg mx-auto">
-                            Será uma honra ter você conosco neste momento mágico. Por favor, confirme até **10 de Novembro**.
+                            Será uma honra ter você conosco neste momento mágico. Por favor, confirme até <strong>15 de Dezembro</strong>.
                         </p>
                     </div>
 
@@ -101,42 +94,27 @@ export default function RSVP() {
                                 <div className="w-24 h-24 bg-[var(--pk-stone)] text-[var(--pk-gold)] rounded-full flex items-center justify-center mx-auto mb-8">
                                     <Check size={48} />
                                 </div>
-                                <h3 className="text-4xl font-[family-name:var(--font-playfair)] mb-4 text-[#1E261D]">Presença Confirmada!</h3>
-                                <p className="text-[var(--pk-text-muted)] text-lg mb-8">Mal podemos esperar para celebrar com você! 🥂</p>
+                                <h3 className="text-4xl font-[family-name:var(--font-playfair)] mb-4 text-[var(--pk-charcoal)]">Presença Confirmada!</h3>
+                                <p className="text-[var(--pk-text-muted)] text-lg mb-8">Mal podemos esperar para celebrar com você!</p>
 
                                 <button
                                     onClick={() => {
                                         try {
-                                            const event = {
-                                                title: 'Casamento Gustavo & Jéssica',
-                                                description: `Você está convidado para celebrar o casamento de Gustavo e Jéssica!\n\nConfira todos os detalhes em: https://love-flows.vercel.app\n\nNos vemos lá! 💍🥂`,
-                                                location: 'Villa Medicea di Lilliano, Toscana, Itália',
-                                                url: 'https://love-flows.vercel.app',
-                                                start: '20261128T170000',
-                                                duration: '6H',
-                                            };
-
                                             const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Love Flows//Wedding Calendar//EN
+PRODID:-//Love Flow//Wedding Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-SUMMARY:${event.title}
-UID:${Date.now()}@loveflows.vercel.app
-SEQUENCE:0
-STATUS:CONFIRMED
-TRANSP:OPAQUE
-DTSTART:${event.start}
-DTEND:20261128T230000
-LOCATION:${event.location}
-DESCRIPTION:${event.description.replace(/\n/g, '\\n')}
-URL:${event.url}
-ORGANIZER;CN=Gustavo & Jéssica:MAILTO:contato@gustavoejessica.com
-ATTENDEE;RSVP=TRUE;CN=${guestDetails.name};PARTSTAT=ACCEPTED;ROLE=REQ-PARTICIPANT:MAILTO:${guestDetails.email}
+SUMMARY:Casamento Noivo & Noiva
+UID:${Date.now()}@loveflow.app
+DTSTART:20270101T170000
+DTEND:20270101T230000
+LOCATION:Local do Evento
+DESCRIPTION:Você está convidado para celebrar o casamento!
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Lembrete: Casamento Gustavo & Jéssica amanhã!
+DESCRIPTION:Lembrete: Casamento amanhã!
 TRIGGER:-P1D
 END:VALARM
 END:VEVENT
@@ -146,7 +124,7 @@ END:VCALENDAR`;
                                             const url = window.URL.createObjectURL(blob);
                                             const a = document.createElement('a');
                                             a.href = url;
-                                            a.download = 'casamento-gustavo-jessica.ics';
+                                            a.download = 'casamento.ics';
                                             document.body.appendChild(a);
                                             a.click();
                                             window.URL.revokeObjectURL(url);
@@ -162,7 +140,7 @@ END:VCALENDAR`;
                                     </svg>
                                     <span>Adicionar à Agenda</span>
                                 </button>
-                                <p className="text-xs text-[var(--pk-text-muted)] mt-4 italic">📱 Funciona melhor no celular, mas também funciona no computador</p>
+                                <p className="text-xs text-[var(--pk-text-muted)] mt-4 italic">Funciona melhor no celular</p>
                             </motion.div>
                         ) : (
                             <motion.form
@@ -178,7 +156,7 @@ END:VCALENDAR`;
                                         <input
                                             ref={nameRef}
                                             type="text"
-                                            className="w-full bg-transparent border-b border-[var(--pk-stone)] py-4 focus:border-[var(--pk-gold)] outline-none text-2xl font-[family-name:var(--font-playfair)] text-[#1E261D] placeholder-[var(--pk-stone)] transition-colors"
+                                            className="w-full bg-transparent border-b border-[var(--pk-stone)] py-4 focus:border-[var(--pk-gold)] outline-none text-2xl font-[family-name:var(--font-playfair)] text-[var(--pk-charcoal)] placeholder-[var(--pk-stone)] transition-colors"
                                             placeholder="Seu nome"
                                             required
                                         />
@@ -188,7 +166,7 @@ END:VCALENDAR`;
                                         <input
                                             ref={emailRef}
                                             type="email"
-                                            className="w-full bg-transparent border-b border-[var(--pk-stone)] py-4 focus:border-[var(--pk-gold)] outline-none text-2xl font-[family-name:var(--font-playfair)] text-[#1E261D] placeholder-[var(--pk-stone)] transition-colors"
+                                            className="w-full bg-transparent border-b border-[var(--pk-stone)] py-4 focus:border-[var(--pk-gold)] outline-none text-2xl font-[family-name:var(--font-playfair)] text-[var(--pk-charcoal)] placeholder-[var(--pk-stone)] transition-colors"
                                             placeholder="email@exemplo.com"
                                             required
                                         />
@@ -207,7 +185,7 @@ END:VCALENDAR`;
                                     <button
                                         type="button"
                                         onClick={() => setAttendance('no')}
-                                        className={`flex-1 py-10 px-6 rounded-2xl border transition-all duration-500 flex flex-col items-center gap-4 ${attendance === 'no' ? 'bg-[#2C3327] border-[#2C3327] text-white shadow-xl scale-[1.02]' : 'border-[var(--pk-stone)] text-[var(--pk-text-muted)] hover:border-black/20 hover:bg-[var(--pk-stone)]/50'}`}
+                                        className={`flex-1 py-10 px-6 rounded-2xl border transition-all duration-500 flex flex-col items-center gap-4 ${attendance === 'no' ? 'bg-[var(--pk-charcoal)] border-[var(--pk-charcoal)] text-white shadow-xl scale-[1.02]' : 'border-[var(--pk-stone)] text-[var(--pk-text-muted)] hover:border-black/20 hover:bg-[var(--pk-stone)]/50'}`}
                                     >
                                         <div className="w-7 h-7 flex items-center justify-center border-2 border-current rounded-full text-sm">✕</div>
                                         <span className="font-bold tracking-[0.3em] text-[10px]">INFELIZMENTE NÃO</span>
@@ -247,7 +225,7 @@ END:VCALENDAR`;
                                                                 value={name}
                                                                 onChange={(e) => handleCompanionChange(index, e.target.value)}
                                                                 placeholder={`Nome do ${index + 1}º acompanhante`}
-                                                                className="w-full bg-transparent border-b border-[var(--pk-stone)] py-2 focus:border-[var(--pk-gold)] outline-none text-lg font-[family-name:var(--font-playfair)] text-[#1E261D]"
+                                                                className="w-full bg-transparent border-b border-[var(--pk-stone)] py-2 focus:border-[var(--pk-gold)] outline-none text-lg font-[family-name:var(--font-playfair)] text-[var(--pk-charcoal)]"
                                                                 required
                                                             />
                                                         </div>
@@ -268,7 +246,7 @@ END:VCALENDAR`;
                                 <button
                                     type="submit"
                                     disabled={formState === 'loading' || !attendance}
-                                    className="w-full bg-[#1E261D] text-white py-6 rounded-2xl font-bold tracking-[0.5em] text-xs hover:bg-[var(--pk-gold)] hover:shadow-[0_20px_50px_-10px_rgba(107,112,92,0.4)] transition-all duration-700 disabled:opacity-20 disabled:grayscale flex justify-center items-center gap-4 mt-8"
+                                    className="w-full bg-[var(--pk-charcoal)] text-white py-6 rounded-2xl font-bold tracking-[0.5em] text-xs hover:bg-[var(--pk-gold)] hover:shadow-[0_20px_50px_-10px_rgba(184,134,11,0.4)] transition-all duration-700 disabled:opacity-20 disabled:grayscale flex justify-center items-center gap-4 mt-8"
                                 >
                                     {formState === 'loading' ? <Loader2 className="animate-spin" /> : 'CONFIRMAR AGORA'}
                                 </button>

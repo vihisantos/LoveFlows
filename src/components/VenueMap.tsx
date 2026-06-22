@@ -3,14 +3,13 @@
 import { motion } from "framer-motion";
 import { MapPin, Navigation } from "lucide-react";
 
-// Temporary placeholder - will be replaced with real data from client
 const VENUE = {
-    name: "Villa Medicea di Lilliano",
-    address: "Via di Lilliano, 11, 50012 Bagno a Ripoli FI",
-    city: "Toscana, Itália",
+    name: "Local do Evento",
+    address: "Endereço do Local",
+    city: "Cidade, Estado",
     coordinates: {
-        lat: 43.7696,
-        lng: 11.3588
+        lat: -23.5505,
+        lng: -46.6333
     }
 };
 
@@ -20,17 +19,11 @@ export default function VenueMap() {
 
     return (
         <section className="py-32 bg-[var(--pk-cream)] relative overflow-hidden">
-            {/* Smooth gradient transition from previous section */}
             <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[var(--pk-cream)] to-transparent pointer-events-none z-10" />
-
-            {/* Subtle background texture */}
             <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none" />
-
-            {/* Decorative divider at top */}
             <div className="absolute top-16 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[var(--pk-gold)]/30 to-transparent" />
 
             <div className="container mx-auto px-4 relative z-10">
-                {/* Header */}
                 <div className="text-center mb-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -45,14 +38,12 @@ export default function VenueMap() {
                         Como Chegar
                     </h2>
                     <p className="font-[family-name:var(--font-lato)] text-[var(--pk-text-muted)] max-w-2xl mx-auto text-lg leading-relaxed">
-                        Encontre-nos neste local mágico na Toscana. Clique no mapa para abrir no GPS do seu dispositivo.
+                        Encontre-nos neste local mágico. Clique no mapa para abrir no GPS do seu dispositivo.
                     </p>
                 </div>
 
-                {/* Map Container */}
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Venue Info Card */}
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -75,14 +66,13 @@ export default function VenueMap() {
                                     </p>
                                     <div className="h-px bg-[var(--pk-stone)] my-6" />
                                     <p className="text-sm text-[var(--pk-text-muted)] mb-2">
-                                        <strong>Data:</strong> 28 de Novembro de 2026
+                                        <strong>Data:</strong> 01 de Janeiro de 2027
                                     </p>
                                     <p className="text-sm text-[var(--pk-text-muted)]">
                                         <strong>Horário:</strong> 17:00
                                     </p>
                                 </div>
 
-                                {/* GPS Button */}
                                 <a
                                     href={googleMapsUrl}
                                     target="_blank"
@@ -95,7 +85,6 @@ export default function VenueMap() {
                             </div>
                         </motion.div>
 
-                        {/* Map */}
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -120,10 +109,7 @@ export default function VenueMap() {
                 </div>
             </div>
 
-            {/* Smooth gradient transition to next section */}
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-white pointer-events-none" />
-
-            {/* Decorative divider at bottom */}
             <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-[var(--pk-gold)]/30 to-transparent" />
         </section>
     );

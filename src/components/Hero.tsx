@@ -22,8 +22,8 @@ export default function Hero() {
     const handleRSVPClick = () => {
         if (lenis) {
             lenis.scrollTo('#rsvp', {
-                duration: 10, // Ultra-slow duration
-                easing: (t) => 1 - Math.pow(1 - t, 4) // Custom ease-out quart
+                duration: 10,
+                easing: (t) => 1 - Math.pow(1 - t, 4)
             });
         } else {
             document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' });
@@ -32,17 +32,15 @@ export default function Hero() {
 
     return (
         <div ref={containerRef} className="relative h-screen overflow-hidden flex items-center justify-center">
-            {/* Background Image (Restored) */}
             <motion.div
                 style={{ y }}
                 className="absolute inset-0 z-0 bg-cover bg-center"
             >
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-80" />
                 <div className="absolute inset-0 bg-black/30 mix-blend-overlay" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#1E261D]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[var(--pk-charcoal)]" />
             </motion.div>
 
-            {/* Content */}
             <div className="relative z-10 text-center px-4">
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -55,7 +53,7 @@ export default function Hero() {
 
                 <div className="mb-8">
                     <RevealText
-                        text="Gustavo & Jessica"
+                        text="Noivo & Noiva"
                         className="font-[family-name:var(--font-playfair)] text-6xl md:text-9xl lg:text-[10rem] text-[var(--pk-gold)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] leading-tight"
                         delay={0.2}
                     />
@@ -68,19 +66,18 @@ export default function Hero() {
                     className="flex flex-col items-center gap-6"
                 >
                     <p className="text-white/80 font-[family-name:var(--font-lato)] tracking-[0.3em] text-sm md:text-base uppercase">
-                        28 de Novembro de 2026 • Às 17:00 • Toscana, Itália
+                        01 de Janeiro de 2027 • Às 17:00 • Local do Evento
                     </p>
 
                     <button
                         onClick={handleRSVPClick}
-                        className="mt-4 px-8 py-3 bg-[var(--pk-gold)] hover:bg-[#C5A028] text-white font-[family-name:var(--font-lato)] tracking-widest uppercase text-xs md:text-sm transition-colors duration-300 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transform"
+                        className="mt-4 px-8 py-3 bg-[var(--pk-gold)] hover:bg-[var(--pk-gold-dim)] text-white font-[family-name:var(--font-lato)] tracking-widest uppercase text-xs md:text-sm transition-colors duration-300 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transform"
                     >
                         Confirmar Presença
                     </button>
                 </motion.div>
             </div>
 
-            {/* Scroll Indicator */}
             <motion.div
                 style={{ opacity }}
                 animate={{ y: [0, 10, 0] }}

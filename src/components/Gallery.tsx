@@ -19,7 +19,7 @@ export default function Gallery() {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <span className="text-[var(--pk-gold)] uppercase tracking-[0.4em] text-xs font-bold mb-4 block">Capturando o Amor</span>
-                    <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl text-[#1E261D]">
+                    <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl text-[var(--pk-charcoal)]">
                         Momentos Preciosos
                     </h2>
                     <div className="w-24 h-[1px] bg-[var(--pk-gold-dim)]/30 mx-auto mt-8" />
